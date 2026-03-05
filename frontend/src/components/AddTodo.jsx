@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function AddTodo({ onAddTodo }) {
     const [title, setTitle] = useState(""); //Sparar texten som user skriver i inputfältet.
+    const [completed, setCompleted] = useState(false); // Min checkbox, Sparar om todo är klar (true/false).
 
     const handleSubmit = (e) => {
         e.preventDefault(); // Sidan laddas inte om vid re-load. Behåller våra todos.
@@ -10,18 +11,20 @@ function AddTodo({ onAddTodo }) {
 
         const newTodo = {
             title: title.trim(),
-            completed: false,
+            completed,
         };
 
         console.log("New todo:", newTodo);
-        onAddTodo(newTodo); // Kör funktionen
+        onAddTodo?.(newTodo); // Kör funktionen bara, OM den existerar.
 
-        setTitle(""); // reset input, gör inputrutan tom efter varje ny todo.
+        setTitle(""); // reset input
+        setCompleted(false); // reset checkbox
     }
 
     return(
         <form onSubmit={handleSubmit}>
             <label>
+                Title:
                 <input 
                     type="text"
                     value={title} // min todo, som skrivs i min input.
@@ -29,8 +32,17 @@ function AddTodo({ onAddTodo }) {
                 />
             </label>
 
-            <button type="submit"> 
-                Add
+            <label>
+                Completed:
+                <input
+                    type="checkbox"
+                    checked={completed} //Kollar om state är (true eller false).
+                    onChange={(e) => setCompleted(e.target.checked)} //Uppdaterar state beroende om den är ikryssad eller ej.
+                />
+            </label>
+
+            <button type="submit">
+                Add Todo
             </button>
         </form>
     );
