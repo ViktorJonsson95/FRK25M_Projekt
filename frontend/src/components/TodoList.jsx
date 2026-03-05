@@ -1,7 +1,8 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
+import TodoItem from './TodoItem.jsx';
 //TODO importera todoItems
-//import { getTodos } from "../services/getTodo.js";
+import { getTodos } from "../services/getTodo.js";
 
 const TodoList = () => {
 
@@ -12,7 +13,8 @@ const TodoList = () => {
     useEffect(() => {
         async function fetchTodos() {
             try {
-                //const data = await getTodos(); TODO getTodos ska importeras
+                const data = await getTodos();
+                console.log("Todos", data)
                 setTodos(data);
             } catch (err) {
                 setError("Could not load todos");
@@ -29,14 +31,14 @@ const TodoList = () => {
 
     return (
         <div>
-            {/* {todos.map((todo) => (
+            {todos.map((todo) => (
                 <TodoItem
                     key={todo.id}
                     id={todo.id}
                     title={todo.title}
                     completed={todo.completed}
                 />
-            ))} */}
+            ))}
         </div>
     );
 }
