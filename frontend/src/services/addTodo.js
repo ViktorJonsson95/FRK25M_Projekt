@@ -1,12 +1,18 @@
 export async function addTodo(title) {
+    
+    const todoObject = {
+        title: title,
+        completed: false
+    }
+
     try {
         const response = await
-            fetch("http://localhost:3000/todos", {
+            fetch("http://localhost:3000/Todo", {
                 method: "POST",// säger till server att vi skapar ny data
                 headers: { 
                     "Content-Type": "application/json"// säger att vi skickar JSON data
                 },
-                body: JSON.stringify({ title }) // skickar själva todo_texten till backend
+                body: JSON.stringify(todoObject) // skickar själva todo_texten till backend
             });
         if (!response.ok) {
             throw new Error(" Network error");
