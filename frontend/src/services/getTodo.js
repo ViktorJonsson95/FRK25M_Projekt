@@ -2,7 +2,7 @@ export async function getTodos() {
     try {
         //await fetch() hämtar data
         const response = await
-            fetch("http://localhost:3000/todos");
+            fetch("http://localhost:3000/Todo");
         //kollar status 200
         if (!response.ok) {
             throw new Error("Network error");
