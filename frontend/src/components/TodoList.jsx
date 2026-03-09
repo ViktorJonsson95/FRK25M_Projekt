@@ -30,7 +30,7 @@ const TodoList = () => {
     if (loading) return <p>Laddar...</p>;
 
     return (
-        <div>
+        <ul>
             {todos.map((todo) => (
                 <TodoItem
                     key={todo.id}
@@ -39,7 +39,7 @@ const TodoList = () => {
                     completed={todo.completed}
                 />
             ))}
-        </div>
+        </ul>
     );
 }
 
