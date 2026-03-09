@@ -26,6 +26,13 @@ const TodoList = () => {
         fetchTodos();
     }, []);
 
+    // Funktion som tar emot ett id och används för att ta bort en todo från vår state.
+    const handleDeleteFromState = (id) => {
+        setTodos((prevTodos) => //prevTodos är senaste versionen av todos-state
+            prevTodos.filter((todo) => todo.id !==id)
+        );
+    };
+
     if (error) return <p>{error}</p>;
     if (loading) return <p>Laddar...</p>;
 
@@ -37,10 +44,11 @@ const TodoList = () => {
                     id={todo.id}
                     title={todo.title}
                     completed={todo.completed}
+                    onDelete={handleDeleteFromState}
                 />
             ))}
         </div>
     );
 }
 
-export default TodoList
+export default TodoList;

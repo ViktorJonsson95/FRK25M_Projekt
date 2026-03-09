@@ -1,4 +1,15 @@
+import { deleteTodo  } from "../services/deleteTodos"
+
 const TodoItem = ({ id, title, completed, onToggle, onDelete }) => {
+  const handleDelete = async () => {
+    try {
+      await deleteTodo(id); // Tar bort todo i backend / databasen
+      onDelete(id); // Tar bort todo i frontend state via Todolist
+    } catch (error) {
+        console.log("Delete failed", error);
+    }
+  };
+
   return (
     <div> 
         {/* Checkbox */}
@@ -14,9 +25,9 @@ const TodoItem = ({ id, title, completed, onToggle, onDelete }) => {
             </span>
 
         {/* Delete knapp */}
-        <button onClick={() => onDelete(id)}>❌</button>
+        <button onClick={handleDelete}>❌</button>
     </div>
   )
 }
 
-export default TodoItem
+export default TodoItem;
