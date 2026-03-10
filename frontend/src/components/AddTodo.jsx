@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { addTodo } from "../services/addTodo";
 
-function AddTodo({ onAddTodo }) {
+function AddTodo() {
     const [title, setTitle] = useState(""); //Sparar texten som user skriver i inputfältet.
 
     const handleSubmit = (e) => {
@@ -14,22 +15,23 @@ function AddTodo({ onAddTodo }) {
         };
 
         console.log("New todo:", newTodo);
-        onAddTodo(newTodo); // Kör funktionen
+        addTodo(newTodo); // Kör funktionen
 
         setTitle(""); // reset input, gör inputrutan tom efter varje ny todo.
     }
 
-    return(
+    return (
         <form onSubmit={handleSubmit}>
             <label>
-                <input 
+                <input
                     type="text"
                     value={title} // min todo, som skrivs i min input.
+                    placeholder="Add todo..."
                     onChange={(e) => setTitle(e.target.value)} //Uppdaterar state varje gång user skriver något.
                 />
             </label>
 
-            <button type="submit"> 
+            <button type="submit">
                 Add
             </button>
         </form>
