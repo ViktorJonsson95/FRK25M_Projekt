@@ -1,0 +1,24 @@
+const api_url = "http://localhost:3000";
+
+//Funktion som skickar en PUT-request för att uppdatera en todo
+export async function updateTodo(id, updatedTodo) {
+    try {
+        const response = await fetch(`${api_url}/Todo/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json", // Skickar JSON i request body
+            },
+            body: JSON.stringify(updatedTodo), // Skickar uppdaterade todon
+        });
+        
+        if(!response.ok) {
+            throw new Error("Could not update todo");
+        }
+
+        // Returner svaret från backend
+        return await response.json();
+    } catch (error) {
+        console.error("Update error", error);
+        throw error;
+    }
+}
