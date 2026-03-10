@@ -37,7 +37,7 @@ const TodoList = () => {
     if (loading) return <p>Laddar...</p>;
 
     return (
-        <div>
+        <ul>
             {todos.map((todo) => (
                 <TodoItem
                     key={todo.id}
@@ -47,7 +47,7 @@ const TodoList = () => {
                     onDelete={handleDeleteFromState}
                 />
             ))}
-        </div>
+        </ul>
     );
 }
 
