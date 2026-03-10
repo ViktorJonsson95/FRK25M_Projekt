@@ -1,6 +1,7 @@
-import { deleteTodo  } from "../services/deleteTodos"
+import { useState } from "react";
+import { deleteTodo  } from "../services/deleteTodos";
 
-const TodoItem = ({ id, title, completed, onToggle, onDelete }) => {
+const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, OnSave, editingId, editedTitle, setEditedTitle, }) => {
   const handleDelete = async () => {
     try {
       await deleteTodo(id); // Tar bort todo i backend / databasen
@@ -9,7 +10,7 @@ const TodoItem = ({ id, title, completed, onToggle, onDelete }) => {
         console.log("Delete failed", error);
     }
   };
-
+  
   return (
     <li>
       {/* Checkbox */}
@@ -19,10 +20,25 @@ const TodoItem = ({ id, title, completed, onToggle, onDelete }) => {
         onChange={() => onToggle(id)}
       />
 
-      {/* ToDo Titel */}
+      {editingId === id ? (
+        <input 
+          value={editedTitle}
+          onChange={(e) => setEditedTitle(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") OnSave(id);
+          }}
+          onBlur={() => OnSave(id)}
+        />
+      ) : (
+        
       <span style={{ textDecoration: completed ? "line-through" : "none" }}>
         {title}
       </span>
+      )}
+
+      {/* Edit knapp */}
+      <button onClick={() => onEditClick(id, title)}>✏️</button>
+
         {/* Delete knapp */}
         <button onClick={handleDelete}>❌</button>
     </li>
