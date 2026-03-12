@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { deleteTodo } from "../services/deleteTodos";
 
-const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, OnSave, editingId, editedTitle, setEditedTitle, }) => {
+const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, onSave, editingId, editedTitle, setEditedTitle, }) => {
 
   return (
     <li>
@@ -13,22 +13,25 @@ const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, OnSav
       />
 
       {editingId === id ? (
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSave(id);
+        }}
+        style={{ display: "inline" }}
+      >
         <input
           value={editedTitle}
           onChange={(e) => setEditedTitle(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") OnSave(id);
-          }}
-          onBlur={() => OnSave(id)}
+          autoFocus
         />
-      ) : (
-
-        <span style={{ textDecoration: completed ? "line-through" : "none" }}>
-          {title}
-        </span>
-      )}
-
-      {/* Edit knapp */}
+      </form>
+    ) : (
+      <span style={{ textDecoration: completed ? "line-through" : "none" }}>
+        {title}
+      </span>
+    )}
+          {/* Edit knapp */}
       <button onClick={() => onEditClick(id, title)}>✏️</button>
 
       {/* Delete knapp */}
