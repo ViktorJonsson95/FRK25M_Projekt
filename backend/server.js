@@ -111,11 +111,15 @@ app.get('/Todo', async (req, res) => {
 //PUT
 app.put('/Todo/:id', async (req, res) => {
     try {
-        const completed = req.body.completed;
         const id = req.params.id;
+        const { title, completed } = req.body;
 
-        const docRef = await db.collection('Todos').doc(id).update({ completed: completed });
+        const updateData = {};
 
+        if (title !== undefined) updateData.title = title;
+        if (completed !== undefined) updateData.completed = completed;
+
+        const docRef = await db.collection('Todos').doc(id).update(updateData);
         res.status(200).json({
             id: docRef.id,
             completed: completed
