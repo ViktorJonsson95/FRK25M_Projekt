@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { addTodo } from "../services/addTodo";
 
-function AddTodo() {
+function AddTodo({ setRefresh }) {
     const [title, setTitle] = useState(""); //Sparar texten som user skriver i inputfältet.
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); // Sidan laddas inte om vid re-load. Behåller våra todos.
 
         if (!title.trim()) return; // ingen tom todo
@@ -15,9 +15,10 @@ function AddTodo() {
         };
 
         console.log("New todo:", newTodo);
-        addTodo(newTodo); // Kör funktionen
+        await addTodo(newTodo); // Kör funktionen
 
         setTitle(""); // reset input, gör inputrutan tom efter varje ny todo.
+        setRefresh(prev => !prev);
     }
 
     return (

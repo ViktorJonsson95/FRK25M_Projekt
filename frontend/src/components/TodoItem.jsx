@@ -1,27 +1,19 @@
 import { useState } from "react";
-import { deleteTodo  } from "../services/deleteTodos";
+import { deleteTodo } from "../services/deleteTodos";
 
 const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, OnSave, editingId, editedTitle, setEditedTitle, }) => {
-  const handleDelete = async () => {
-    try {
-      await deleteTodo(id); // Tar bort todo i backend / databasen
-      onDelete(id); // Tar bort todo i frontend state via Todolist
-    } catch (error) {
-        console.log("Delete failed", error);
-    }
-  };
-  
+
   return (
     <li>
       {/* Checkbox */}
       <input
         type="checkbox"
         checked={completed}
-        onChange={() => onToggle(id)}
+        onChange={() => onToggle(id, completed)}
       />
 
       {editingId === id ? (
-        <input 
+        <input
           value={editedTitle}
           onChange={(e) => setEditedTitle(e.target.value)}
           onKeyDown={(e) => {
@@ -30,17 +22,17 @@ const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, OnSav
           onBlur={() => OnSave(id)}
         />
       ) : (
-        
-      <span style={{ textDecoration: completed ? "line-through" : "none" }}>
-        {title}
-      </span>
+
+        <span style={{ textDecoration: completed ? "line-through" : "none" }}>
+          {title}
+        </span>
       )}
 
       {/* Edit knapp */}
       <button onClick={() => onEditClick(id, title)}>✏️</button>
 
-        {/* Delete knapp */}
-        <button onClick={handleDelete}>❌</button>
+      {/* Delete knapp */}
+      <button onClick={() => onDelete(id)}>❌</button>
     </li>
 
   )

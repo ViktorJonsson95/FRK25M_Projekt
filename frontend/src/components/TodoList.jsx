@@ -4,8 +4,9 @@ import TodoItem from './TodoItem.jsx';
 //TODO importera todoItems
 import { getTodos } from "../services/getTodo.js";
 import { updateTodo } from '../services/updateTodo.js';
+import { deleteTodo } from '../services/deleteTodos.js';
 
-const TodoList = () => {
+const TodoList = ({ refresh, setRefresh }) => {
 
     const [todos, setTodos] = useState([]);
     const [error, setError] = useState(null);
@@ -28,13 +29,33 @@ const TodoList = () => {
         }
 
         fetchTodos();
-    }, []);
+    }, [refresh]);
 
     // Funktion som tar emot ett id och används för att ta bort en todo från vår state.
-    const handleDeleteFromState = (id) => {
-        setTodos((prevTodos) => //prevTodos är senaste versionen av todos-state.
-            prevTodos.filter((todo) => todo.id !==id)
-        );
+    const onDelete = async (id) => {
+        try {
+            const response = await deleteTodo(id)
+            console.log(response)
+            setRefresh(prev => !prev)
+        } catch (error) {
+            console.log("Delete failed", error)
+        }
+    }
+
+    const onToggle = async (id, currentCompleted) => {
+        try {
+            // Skapa nytt värde (motsatsen till nuvarande)
+            const newCompleted = !currentCompleted;
+
+            // Uppdatera backend
+            await updateTodo(id, { completed: newCompleted });
+
+            // Trigga ny fetch
+            setRefresh(prev => !prev);
+
+        } catch (error) {
+            console.log("Toggle failed", error);
+        }
     };
 
     const startEdit = (id, title) => {
@@ -45,20 +66,20 @@ const TodoList = () => {
     // Funktion som uppdaterar titeln på en todo
     const handleEdit = async (id) => {
         if (!editedTitle.trim()) return;
-        
+
         // Skickar PUT-request till backend för att uppdatera todon i databasen.
-        try { 
+        try {
             await updateTodo(id, { title: editedTitle });
-            
+
             // Uppdaterar frontend-state så att UI ändras direkt.
             setTodos((prevTodos) =>
                 prevTodos.map((todo) =>  //Går igenom listan och om vi hittar rätt todo-id, uppdateras titeln.
                     todo.id === id ? { ...todo, title: editedTitle } : todo
-            )
-        );
+                )
+            );
 
-        setEditingId(null);
-        setEditedTitle("");
+            setEditingId(null);
+            setEditedTitle("");
         } catch (error) {
             console.log("Edit failed", error);
         }
@@ -75,7 +96,8 @@ const TodoList = () => {
                     id={todo.id}
                     title={todo.title}
                     completed={todo.completed}
-                    onDelete={handleDeleteFromState}
+                    onDelete={onDelete}
+                    onToggle={onToggle}
                     onEditClick={startEdit}
                     OnSave={handleEdit}
                     editingId={editingId}
