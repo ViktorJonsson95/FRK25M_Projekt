@@ -10,11 +10,11 @@ export async function deleteTodo(id) {
         });
 
         //Vårt felmeddelande
-        if(!respone.ok) {
+        if(!response.ok) {
             throw new Error("could not delete todo");
         }
         //Här returneras svaret från backend
-        return await respone.json();
+        return await response.json();
     } catch (error) {
 
         console.error("Delete error:", error);
