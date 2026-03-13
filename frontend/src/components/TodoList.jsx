@@ -1,7 +1,5 @@
-import React from 'react'
 import { useEffect, useState } from 'react'
 import TodoItem from './TodoItem.jsx';
-//TODO importera todoItems
 import { getTodos } from "../services/getTodo.js";
 import { updateTodo } from '../services/updateTodo.js';
 import { deleteTodo } from '../services/deleteTodos.js';
@@ -59,6 +57,11 @@ const TodoList = ({ refresh, setRefresh }) => {
     };
 
     const startEdit = (id, title) => {
+        if (id === null) {
+            setEditingId(null)
+            setEditedTitle("");
+            return
+        }
         setEditingId(id);
         setEditedTitle(title);
     };
