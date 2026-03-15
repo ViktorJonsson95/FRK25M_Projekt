@@ -1,17 +1,20 @@
+import { getAuthToken } from "./getAuthToken";
 const api_url = "http://localhost:3000";
 
 //Funktion som skickar en PUT-request för att uppdatera en todo
 export async function updateTodo(id, updatedTodo) {
     try {
+        const token = await getAuthToken();
         const response = await fetch(`${api_url}/Todo/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json", // Skickar JSON i request body
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(updatedTodo), // Skickar uppdaterade todon
         });
-        
-        if(!response.ok) {
+
+        if (!response.ok) {
             throw new Error("Could not update todo");
         }
 

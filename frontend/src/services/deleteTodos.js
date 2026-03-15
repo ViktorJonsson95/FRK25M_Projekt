@@ -1,16 +1,23 @@
+import { getAuthToken } from "./getAuthToken";
 const api_url = "http://localhost:3000";
 
 // Funktion som skickar en DELETE request till backend för att ta bort en todo
 export async function deleteTodo(id) {
     try {
+        // hämtar Firebase auth-token för den inloggade användaren
+        // tokenen skickas med till backend så serverns middleware kan verifiera användaren
+        const token = await getAuthToken();
+
         // Skickar request till endpointen DELETE /Todo/:id
-        // id sätts in i URL:en så backend vet vilken todo som ska tas bort
         const response = await fetch(`${api_url}/Todo/${id}`, {
             method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}` //här skickas auth token med till backend
+            }
         });
 
         //Vårt felmeddelande
-        if(!response.ok) {
+        if (!response.ok) {
             throw new Error("could not delete todo");
         }
         //Här returneras svaret från backend
