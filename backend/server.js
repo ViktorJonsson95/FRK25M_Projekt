@@ -1,3 +1,17 @@
+/*
+Denna server hanterar todo-API:t.
+
+Autentisering:
+Frontend loggar in via Firebase Auth och skickar en ID-token
+i Authorization-headern (Bearer token).
+
+Middleware "authenticate" verifierar tokenen via Firebase Admin.
+När tokenen är verifierad får vi användarens uid.
+
+Todos sparas sedan per användare i Firestore:
+users/{uid}/todos/{todoId}
+*/
+
 //----Importera nödvändiga paket----
 import dotenv from "dotenv";
 dotenv.config();
@@ -5,6 +19,7 @@ import express, { json } from 'express';
 import cors from 'cors';
 import { initializeApp, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
+import { getAuth } from "firebase-admin/auth";
 
 //----Konfigurera Express-servern----
 const app = express();
@@ -23,20 +38,49 @@ initializeApp({
 
 const db = getFirestore();
 
+// -----Middleware----
+// Middleware som verifierar Firebase auth-token
+// Alla requests till todo-endpoints måste ha en giltig token
+async function authenticate(req, res, next) {
+    try {
+        // Token skickas i Authorization header från frontend
+        const header = req.headers.authorization;
 
+        if (!header || !header.startsWith("Bearer ")) {
+            return res.status(401).send("Unauthorized");
+        }
+
+        // Plockar ut själva tokenen
+        const token = header.split(" ")[1];
+
+        // Verifierar token via Firebase Admin
+        const decoded = await getAuth().verifyIdToken(token);
+
+        // Lägger till användarens info på requesten
+        req.user = decoded;
+
+        // Fortsätter till endpointen
+        next();
+
+    } catch (error) {
+
+        return res.status(401).send("Invalid token");
+
+    }
+}
 //----Endpoints----
 
-//GET
+//GET TEST
 app.get('/test', async (req, res) => {
     res.status(200).json({ message: "Lyckades" });
 });
 
 //POST
-app.post('/Todo', async (req, res) => {
+app.post('/Todo', authenticate, async (req, res) => {
     try {
         const { completed, title } = req.body;
 
-        if (!req.body.title) {
+        if (!title) {
             return res.status(400).send('Title missing');
         }
 
@@ -45,12 +89,12 @@ app.post('/Todo', async (req, res) => {
             completed: completed || false
         }
 
-        const docRef = await db.collection('Todos').add(newTodo);
+        const docRef = await db.collection("users").doc(req.user.uid).collection("todos").add(newTodo);
 
         res.status(200).json({
             id: docRef.id,
             ...newTodo
-        })
+        });
 
     } catch (error) {
         console.error(error);
@@ -59,7 +103,7 @@ app.post('/Todo', async (req, res) => {
 });
 
 //DELETE
-app.delete('/Todo/:id', async (req, res) => {
+app.delete('/Todo/:id', authenticate, async (req, res) => {
     try {
         const id = req.params.id;
 
@@ -67,24 +111,25 @@ app.delete('/Todo/:id', async (req, res) => {
             return res.status(400).send('ID missing');
         }
 
-        const docRef = await db.collection('Todos').doc(id).delete();
+        await db.collection("users").doc(req.user.uid).collection("todos").doc(id).delete();
 
         res.status(200).json({
-            message: "sucess",
-            id: docRef.id,
+            message: "success :P",
+            id: id,
         })
 
     } catch (error) {
         console.error(error);
         console.log('Gick inte ta bort todo');
+        res.status(500).json({ error: "Delete failed" });
     }
 
 })
 
 //GET
-app.get('/Todo', async (req, res) => {
+app.get('/Todo', authenticate, async (req, res) => {
     try {
-        const snapshot = await db.collection('Todos').get();
+        const snapshot = await db.collection("users").doc(req.user.uid).collection("todos").get();
 
         if (snapshot.empty) {
             return res.status(200).json([]);
@@ -105,11 +150,12 @@ app.get('/Todo', async (req, res) => {
     } catch (error) {
         console.error(error);
         console.log('get did not work');
+        res.status(500).json({ error: "Failed to get todos" });
     }
 })
 
 //PUT
-app.put('/Todo/:id', async (req, res) => {
+app.put('/Todo/:id', authenticate, async (req, res) => {
     try {
         const id = req.params.id;
         const { title, completed } = req.body;
@@ -119,15 +165,22 @@ app.put('/Todo/:id', async (req, res) => {
         if (title !== undefined) updateData.title = title;
         if (completed !== undefined) updateData.completed = completed;
 
-        const docRef = await db.collection('Todos').doc(id).update(updateData);
+        await db
+            .collection("users")
+            .doc(req.user.uid)
+            .collection("todos")
+            .doc(id)
+            .update(updateData);
+
         res.status(200).json({
-            id: docRef.id,
-            completed: completed
-        })
+            id,
+            ...updateData
+        });
 
     } catch (error) {
         console.error(error);
         console.log('put funkar inte');
+        res.status(500).json({ error: "Failed to update todo" });
     }
 })
 
