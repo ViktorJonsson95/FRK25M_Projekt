@@ -1,7 +1,5 @@
-import React from 'react'
 import { useEffect, useState } from 'react'
 import TodoItem from './TodoItem.jsx';
-//TODO importera todoItems
 import { getTodos } from "../services/getTodo.js";
 import { updateTodo } from '../services/updateTodo.js';
 import { deleteTodo } from '../services/deleteTodos.js';
@@ -59,6 +57,11 @@ const TodoList = ({ refresh, setRefresh }) => {
     };
 
     const startEdit = (id, title) => {
+        if (id === null) {
+            setEditingId(null)
+            setEditedTitle("");
+            return
+        }
         setEditingId(id);
         setEditedTitle(title);
     };
@@ -71,15 +74,9 @@ const TodoList = ({ refresh, setRefresh }) => {
         try {
             await updateTodo(id, { title: editedTitle });
 
-            // Uppdaterar frontend-state så att UI ändras direkt.
-            setTodos((prevTodos) =>
-                prevTodos.map((todo) =>  //Går igenom listan och om vi hittar rätt todo-id, uppdateras titeln.
-                    todo.id === id ? { ...todo, title: editedTitle } : todo
-                )
-            );
-
             setEditingId(null);
             setEditedTitle("");
+            setRefresh(prev => !prev);
         } catch (error) {
             console.log("Edit failed", error);
         }
@@ -99,7 +96,7 @@ const TodoList = ({ refresh, setRefresh }) => {
                     onDelete={onDelete}
                     onToggle={onToggle}
                     onEditClick={startEdit}
-                    OnSave={handleEdit}
+                    onSave={handleEdit}
                     editingId={editingId}
                     editedTitle={editedTitle}
                     setEditedTitle={setEditedTitle}
