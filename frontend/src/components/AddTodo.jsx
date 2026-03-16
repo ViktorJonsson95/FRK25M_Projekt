@@ -12,6 +12,7 @@ function AddTodo({ setRefresh }) {
         const newTodo = {
             title: title.trim(),
             completed: false,
+            createdAt: Date.now()
         };
 
         console.log("New todo:", newTodo);
