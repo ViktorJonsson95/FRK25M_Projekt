@@ -18,7 +18,10 @@ const TodoList = ({ refresh, setRefresh }) => {
             try {
                 const data = await getTodos();
                 console.log("Todos", data)
-                setTodos(data);
+
+                const sortedTodos = [...data].sort((a, b) => a.createdAt - b.createdAt);
+                setTodos(sortedTodos);
+                
             } catch (err) {
                 setError("Could not load todos");
             } finally {
