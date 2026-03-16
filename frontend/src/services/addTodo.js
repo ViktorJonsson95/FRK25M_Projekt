@@ -1,11 +1,15 @@
+import { getAuthToken } from "./getAuthToken";
+
 export async function addTodo(todoObject) {
     if (!todoObject.title) return;
     try {
+        const token = await getAuthToken();
         const response = await
             fetch("http://localhost:3000/Todo", {
                 method: "POST",// säger till server att vi skapar ny data
                 headers: {
-                    "Content-Type": "application/json"// säger att vi skickar JSON data
+                    "Content-Type": "application/json",// säger att vi skickar JSON data
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(todoObject) // skickar själva todo_texten till backend
             });
