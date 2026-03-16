@@ -35,7 +35,7 @@ function App() {
   );
   return (
     <>
-
+      <Weather></Weather>
       <h1>Todo App</h1>
       <AddTodo setRefresh={setRefresh} />
       <TodoList refresh={refresh} setRefresh={setRefresh} />

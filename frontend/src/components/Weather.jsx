@@ -5,7 +5,6 @@ export default function Weather() {
     const [city, setCity] = useState(null);
 
     useEffect(() => {
-        console.log("test")
         navigator.geolocation.getCurrentPosition(async (position) => {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
