@@ -78,7 +78,7 @@ app.get('/test', async (req, res) => {
 //POST
 app.post('/Todo', authenticate, async (req, res) => {
     try {
-        const { completed, title } = req.body;
+        const { completed, title, createdAt } = req.body;
 
         if (!title) {
             return res.status(400).send('Title missing');
@@ -86,7 +86,8 @@ app.post('/Todo', authenticate, async (req, res) => {
 
         const newTodo = {
             title: title,
-            completed: completed || false
+            completed: completed || false,
+            createdAt: createdAt || Date.now()
         }
 
         const docRef = await db.collection("users").doc(req.user.uid).collection("todos").add(newTodo);
@@ -142,7 +143,8 @@ app.get('/Todo', authenticate, async (req, res) => {
             todos.push({
                 id: doc.id,
                 title: data.title,
-                completed: data.completed
+                completed: data.completed,
+                createdAt: data.createdAt
             });
         });
 
