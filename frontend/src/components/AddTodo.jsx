@@ -22,17 +22,19 @@ function AddTodo({ setRefresh }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
+        <form onSubmit={handleSubmit}
+        className="add-todo-form">
+            <label className="add-todo-label">
                 <input
                     type="text"
                     value={title} // min todo, som skrivs i min input.
                     placeholder="Add todo..."
-                    onChange={(e) => setTitle(e.target.value)} //Uppdaterar state varje gång user skriver något.
+                    onChange={(e) => setTitle(e.target.value)}//Uppdaterar state varje gång user skriver något.
+                    className="add-todo-input" 
                 />
             </label>
 
-            <button type="submit">
+            <button type="submit" className="add-todo-button">
                 Add
             </button>
         </form>

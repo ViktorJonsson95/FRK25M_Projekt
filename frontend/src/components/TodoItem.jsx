@@ -4,16 +4,18 @@ import { deleteTodo } from "../services/deleteTodos";
 const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, OnSave, editingId, editedTitle, setEditedTitle, }) => {
 
   return (
-    <li>
+    <li className="todo-item">
       {/* Checkbox */}
       <input
         type="checkbox"
         checked={completed}
         onChange={() => onToggle(id, completed)}
+        className="todo-checkbox"
       />
 
       {editingId === id ? (
         <input
+          className="todo-edit-input"
           value={editedTitle}
           onChange={(e) => setEditedTitle(e.target.value)}
           onKeyDown={(e) => {
@@ -22,17 +24,21 @@ const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, OnSav
           onBlur={() => OnSave(id)}
         />
       ) : (
-
-        <span style={{ textDecoration: completed ? "line-through" : "none" }}>
+        <span
+          className="todo-text"
+          style={{ textDecoration: completed ? "line-through" : "none" }}>
           {title}
         </span>
       )}
+      <div className="todo-actions">
+        {/* Edit knapp */}
+        <button onClick={() => onEditClick(id, title)}
+          className="edit-button">✏️</button>
 
-      {/* Edit knapp */}
-      <button onClick={() => onEditClick(id, title)}>✏️</button>
+        {/* Delete knapp */}
+        <button onClick={() => onDelete(id)} className="delete-button">❌</button>
 
-      {/* Delete knapp */}
-      <button onClick={() => onDelete(id)}>❌</button>
+      </div>
     </li>
 
   )
