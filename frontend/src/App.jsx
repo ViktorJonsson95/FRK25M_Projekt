@@ -1,5 +1,7 @@
 import AddTodo from "./components/AddTodo";
 import TodoList from "./components/TodoList";
+import { useState } from "react";
+import "./App.css"
 import Login from "./components/Login";
 import Weather from "./components/Weather";
 
@@ -35,13 +37,17 @@ function App() {
   );
   return (
     <>
-      <Weather></Weather>
-      <h1>Todo App</h1>
+    <div className="app">
+    <Weather></Weather>
+      <div className="todo-container">
+      <h1 className="app-title">Todo App</h1>
       <AddTodo setRefresh={setRefresh} />
       <TodoList refresh={refresh} setRefresh={setRefresh} />
-      <button onClick={logoutUser}>
+         <button onClick={logoutUser}>
         Logout
       </button>
+      </div>
+    </div>  
     </>
   );
 }

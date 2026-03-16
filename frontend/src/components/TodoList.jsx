@@ -86,7 +86,7 @@ const TodoList = ({ refresh, setRefresh }) => {
     if (loading) return <p>Laddar...</p>;
 
     return (
-        <ul>
+        <ul className="todo-list">
             {todos.map((todo) => (
                 <TodoItem
                     key={todo.id}

@@ -1,8 +1,9 @@
 const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, onSave, editingId, editedTitle, setEditedTitle, }) => {
   return (
-    <li>
+    <li className="todo-item">
       {editingId === id ? ( //if-sats, om editingId = true så visas form, false så visas div med span
-        <form className="todo-edit-view"
+        <form
+          className="todo-edit-view"
           onSubmit={(e) => {
             e.preventDefault();
             onSave(id);
@@ -10,6 +11,7 @@ const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, onSav
           style={{ display: "inline" }}
         >
           <input
+            className="todo-edit-input"
             value={editedTitle}
             onChange={(e) => setEditedTitle(e.target.value)}
             onKeyDown={(e) => { //Om man trycker escape så stängs edit
@@ -32,15 +34,31 @@ const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, onSav
             type="checkbox"
             checked={completed}
             onChange={() => onToggle(id, completed)}
+            className="todo-checkbox"
           />
-          <span style={{ textDecoration: completed ? "line-through" : "none" }}>
+
+          <span
+            className="todo-text"
+            style={{ textDecoration: completed ? "line-through" : "none" }}
+          >
             {title}
           </span>
+
           {/* Edit knapp */}
-          <button onClick={() => onEditClick(id, title)}>✏️</button>
+          <button
+            onClick={() => onEditClick(id, title)}
+            className="edit-button"
+          >
+            ✏️
+          </button>
 
           {/* Delete knapp */}
-          <button onClick={() => onDelete(id)}>❌</button>
+          <button
+            onClick={() => onDelete(id)}
+            className="delete-button"
+          >
+            ❌
+          </button>
         </div>
       )}
     </li>
