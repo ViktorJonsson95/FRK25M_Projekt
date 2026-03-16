@@ -1,6 +1,7 @@
 import AddTodo from "./components/AddTodo";
 import TodoList from "./components/TodoList";
 import Login from "./components/Login";
+import Weather from "./components/Weather";
 
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
@@ -26,10 +27,15 @@ function App() {
 
   if (loading) return <p>Laddar...</p>;
 
-  if (!user) return <Login />;
-
+  if (!user) return (
+    <div>
+      <Weather></Weather>
+      <Login />
+    </div >
+  );
   return (
     <>
+
       <h1>Todo App</h1>
       <AddTodo setRefresh={setRefresh} />
       <TodoList refresh={refresh} setRefresh={setRefresh} />
