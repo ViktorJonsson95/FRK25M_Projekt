@@ -3,7 +3,7 @@ import TodoList from "./components/TodoList";
 import "./App.css"
 import Login from "./components/Login";
 import Weather from "./components/Weather";
-
+import Clock from "./components/Clock";
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase"
@@ -30,6 +30,7 @@ function App() {
 
   if (!user) return (
     <div>
+      <Clock />
       <Weather></Weather>
       <Login />
     </div >
@@ -37,6 +38,7 @@ function App() {
   return (
     <>
       <div className="app">
+        <Clock />
         <Weather></Weather>
         <div className="todo-container">
           <h1 className="app-title">Todo App</h1>
