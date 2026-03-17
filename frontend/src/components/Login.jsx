@@ -30,27 +30,30 @@ function Login() {
         return <Register setShowRegister={setShowRegister} />;
     }
     return (
-        <div className="login">
-            <form onSubmit={handleSubmit}>
-                <h2>Login</h2>
-                <input
-                    type="text"
-                    placeholder="username..."
-                    onChange={(e) => setUsername(e.target.value)}
-                />
+        <div className="login-page">
+            <div className="login-card">
+                <form onSubmit={handleSubmit} className="login-form">
 
-                <input
-                    type="password"
-                    placeholder="password..."
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+                    <h2 className="login-title">Login</h2>
+                    <input
+                        type="text"
+                        placeholder="username..."
+                        onChange={(e) => setUsername(e.target.value)} className="login-input"
+                    />
 
-                <button>Login</button>
-            </form>
-            {error && <p>{error}</p>}
-            <button type="button" onClick={() => setShowRegister(true)}>
-                Create account
-            </button>
+                    <input
+                        type="password"
+                        placeholder="password..."
+                        onChange={(e) => setPassword(e.target.value)} className="login-input"
+                    />
+
+                    <button className="login-button">Login</button>
+                </form>
+                {error && <p className="login-error">{error}</p>}
+                <button type="button" onClick={() => setShowRegister(true)} className="create-account-button">
+                    Create account
+                </button>
+            </div>
         </div>
 
     );

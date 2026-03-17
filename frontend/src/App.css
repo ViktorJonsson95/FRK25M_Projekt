@@ -79,9 +79,6 @@ body {
 }
 
 .todo-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
   background: white;
   border: 1px solid #e5e7eb;
   border-radius: 16px;
@@ -94,7 +91,6 @@ body {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-  cursor: pointer;
 }
 
 .todo-text {
@@ -106,11 +102,11 @@ body {
 
 .todo-edit-input {
   flex: 1;
+  max-width: 0;
   padding: 10px 12px;
   border: 1px solid #d1d5db;
   border-radius: 12px;
   font-size: 18px;
-  outline: none;
 }
 
 .todo-edit-input:focus {
@@ -119,7 +115,6 @@ body {
 
 .todo-actions {
   display: flex;
-  align-items: center;
   gap: 8px;
   margin-left: auto;
 }
@@ -135,7 +130,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.2s;
+  flex-shrink: 0;
 }
 
 .edit-button {
@@ -164,6 +159,163 @@ body {
 .error-message {
   color: #dc2626;
 }
+
+.todo-view,
+.todo-edit-view {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  padding: 32px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.login-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-input {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  font-size: 16px;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: #111827;
+}
+
+.login-button {
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: #111827;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  opacity: 0.9;
+}
+
+.create-account-button {
+  margin-top: 12px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #eef2ff;
+  color: #3730a3;
+  cursor: pointer;
+}
+
+.login-error {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.register-rules {
+  margin-bottom: 16px;
+  padding-left: 18px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  background: white;
+  padding: 32px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.login-input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.login-button {
+  background: #111827;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.create-account-button {
+  margin-top: 10px;
+  background: transparent;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.app {
+  position: relative;
+}
+
+.logout-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.logout-button:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
 
 @media (max-width: 700px) {
   .app {

@@ -40,13 +40,13 @@ function App() {
       <div className="app">
         <Clock />
         <Weather></Weather>
+        <button onClick={logoutUser} className="logout-button">
+          Logout
+        </button>
         <div className="todo-container">
           <h1 className="app-title">Todo App</h1>
           <AddTodo setRefresh={setRefresh} />
           <TodoList refresh={refresh} setRefresh={setRefresh} />
-          <button onClick={logoutUser}>
-            Logout
-          </button>
         </div>
       </div>
     </>
