@@ -24,33 +24,49 @@ function Register({ setShowRegister }) {
     };
 
     return (
-        <div className="register">
-            <form onSubmit={handleSubmit}>
 
-                <h2>Register</h2>
+        <div className="login-page">
+            <div className="login-card">
+
+                <h2 className="login-title">Register</h2>
+
                 <ul className="register-rules">
-                    <li>Username must be 3–20 characters and contain only letters or numbers.</li>
-                    <li>Password must be at least 6 characters.</li>
+                    <li>Username must be 3–20 characters</li>
+                    <li>Password must be at least 6 characters</li>
                 </ul>
-                <input
-                    type="text"
-                    placeholder="username..."
-                    onChange={(e) => setUsername(e.target.value)}
-                />
 
-                <input
-                    type="password"
-                    placeholder="password..."
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+                <form onSubmit={handleSubmit} className="login-form">
 
-                <button>Create account</button>
+                    <input
+                        type="text"
+                        placeholder="Username..."
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="login-input"
+                    />
 
-            </form>
-            {error && <p>{error}</p>}
-            <button onClick={() => setShowRegister(false)}>
-                Back to login
-            </button>
+                    <input
+                        type="password"
+                        placeholder="Password..."
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="login-input"
+                    />
+
+                    <button className="login-button">
+                        Create account
+                    </button>
+
+                </form>
+
+                {error && <p className="error-message">{error}</p>}
+
+                <button
+                    onClick={() => setShowRegister(false)}
+                    className="create-account-button"
+                >
+                    Back to login
+                </button>
+
+            </div>
         </div>
     );
 }

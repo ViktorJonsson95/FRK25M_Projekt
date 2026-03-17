@@ -8,7 +8,7 @@ const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, onSav
             e.preventDefault();
             onSave(id);
           }}
-          style={{ display: "inline" }}
+          
         >
           <input
             className="todo-edit-input"
