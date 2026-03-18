@@ -5,46 +5,46 @@ export default function Weather() {
     const [city, setCity] = useState(null);
 
     const weatherText = {
-        0: "Klart",
+        0: "Clear",
 
-        1: "Mest klart",
-        2: "Delvis molnigt",
-        3: "Mulet",
+        1: "Mostly clear",
+        2: "Partly cloudy",
+        3: "Overcast",
 
-        45: "Dimma",
-        48: "Rimfrost-dimma",
+        45: "Fog",
+        48: "Rime fog",
 
-        51: "Lätt duggregn",
-        53: "Duggregn",
-        55: "Kraftigt duggregn",
+        51: "Light drizzle",
+        53: "Drizzle",
+        55: "Heavy drizzle",
 
-        56: "Lätt underkylt duggregn",
-        57: "Kraftigt underkylt duggregn",
+        56: "Light freezing drizzle",
+        57: "Heavy freezing drizzle",
 
-        61: "Lätt regn",
-        63: "Regn",
-        65: "Kraftigt regn",
+        61: "Light rain",
+        63: "Rain",
+        65: "Heavy rain",
 
-        66: "Lätt underkylt regn",
-        67: "Kraftigt underkylt regn",
+        66: "Light freezing rain",
+        67: "Heavy freezing rain",
 
-        71: "Lätt snöfall",
-        73: "Snöfall",
-        75: "Kraftigt snöfall",
+        71: "Light snowfall",
+        73: "Snowfall",
+        75: "Heavy snowfall",
 
-        77: "Snökorn",
+        77: "Snow grains",
 
-        80: "Lätta regnskurar",
-        81: "Regnskurar",
-        82: "Kraftiga regnskurar",
+        80: "Light rain showers",
+        81: "Rain showers",
+        82: "Heavy rain showers",
 
-        85: "Lätta snöbyar",
-        86: "Kraftiga snöbyar",
+        85: "Light snow showers",
+        86: "Heavy snow showers",
 
-        95: "Åskväder",
+        95: "Thunderstorm",
 
-        96: "Åskväder med lätt hagel",
-        99: "Åskväder med kraftigt hagel"
+        96: "Thunderstorm with light hail",
+        99: "Thunderstorm with heavy hail"
     };
 
     const fetchWeather = async (lat, lon) => {
