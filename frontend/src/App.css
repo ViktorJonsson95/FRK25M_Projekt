@@ -22,7 +22,6 @@ body {
   height: 140px;
   font-size: 14px;
   line-height: 1.7;
-  overflow: hidden;
 }
 
 .todo-container {
