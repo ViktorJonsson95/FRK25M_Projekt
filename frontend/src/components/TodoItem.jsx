@@ -8,7 +8,7 @@ const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, onSav
             e.preventDefault();
             onSave(id);
           }}
-          
+
         >
           <input
             className="todo-edit-input"
@@ -22,10 +22,12 @@ const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, onSav
             }}
             autoFocus
           />
-          <button type="submit">✔️</button>
-          <button type="button" onClick={() => onEditClick(null)}>
-            ❌
-          </button>
+          <div className="todo-actions">
+            <button type="submit" className="save-button">✔️</button>
+            <button type="button" className="delete-button" onClick={() => onEditClick(null)}>
+              ❌
+            </button>
+          </div>
         </form>
       ) : (
         <div className="todo-view">
@@ -57,7 +59,7 @@ const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, onSav
             onClick={() => onDelete(id)}
             className="delete-button"
           >
-            ❌
+            🗑️
           </button>
         </div>
       )}

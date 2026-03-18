@@ -11,14 +11,25 @@ body {
 
 .app {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  padding: 60px 20px;
+  position: relative;
+}
+
+.weather-box {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 220px;
+  height: 140px;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow: hidden;
 }
 
 .todo-container {
   width: 100%;
   max-width: 640px;
+  margin: 0 auto;
+  padding-top: 120px;
 }
 
 .app-title {
@@ -87,6 +98,14 @@ body {
   box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
 }
 
+.todo-view,
+.todo-edit-view {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
 .todo-checkbox {
   width: 20px;
   height: 20px;
@@ -102,25 +121,31 @@ body {
 
 .todo-edit-input {
   flex: 1;
-  max-width: 0;
+  width: 100%;
+  min-width: 0;
   padding: 10px 12px;
   border: 1px solid #d1d5db;
   border-radius: 12px;
   font-size: 18px;
+  outline: none;
 }
 
 .todo-edit-input:focus {
   border-color: #111827;
+  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
 }
 
 .todo-actions {
   display: flex;
+  align-items: center;
   gap: 8px;
   margin-left: auto;
+  flex-shrink: 0;
 }
 
 .edit-button,
-.delete-button {
+.delete-button,
+.save-button {
   border: none;
   width: 42px;
   height: 42px;
@@ -131,14 +156,23 @@ body {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: 0.2s;
+  padding: 0;
 }
 
 .edit-button {
   background: #f3f4f6;
 }
 
+.save-button {
+  background: #f3f4f6;
+  color: #4f46e5;
+}
+
 .delete-button {
-  background: #fee2e2;
+  background: #f9fafb;
+  color: #e9ca3aff;
+
 }
 
 .edit-button:hover {
@@ -146,9 +180,14 @@ body {
   transform: scale(1.05);
 }
 
-.delete-button:hover {
-  background: #fecaca;
+.save-button:hover {
+  background: #dcfce7;
   transform: scale(1.05);
+}
+
+.delete-button:hover {
+  background: #fee2e2;
+  color: rgb(68, 233, 239);
 }
 
 .message {
@@ -160,34 +199,27 @@ body {
   color: #dc2626;
 }
 
-.todo-view,
-.todo-edit-view {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-}
-
 .login-page {
-  min-height: 100vh;
+  position: fixed;
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  pointer-events: none;
 }
 
 .login-card {
+  pointer-events: auto;
   width: 100%;
   max-width: 400px;
   background: white;
-  padding: 32px;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .login-title {
   text-align: center;
-  font-size: 32px;
   margin-bottom: 20px;
 }
 
@@ -198,46 +230,48 @@ body {
 }
 
 .login-input {
-  padding: 14px;
-  border-radius: 12px;
-  border: 1px solid #d1d5db;
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
   font-size: 16px;
 }
 
 .login-input:focus {
   outline: none;
   border-color: #111827;
+  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
 }
 
 .login-button {
-  margin-top: 10px;
-  padding: 14px;
-  border: none;
-  border-radius: 12px;
   background: #111827;
   color: white;
-  font-weight: 600;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .login-button:hover {
-  opacity: 0.9;
-}
-
-.create-account-button {
-  margin-top: 12px;
-  padding: 12px;
-  border: none;
-  border-radius: 12px;
-  background: #eef2ff;
-  color: #3730a3;
-  cursor: pointer;
+  opacity: 0.92;
 }
 
 .login-error {
   color: red;
   margin-top: 10px;
   text-align: center;
+}
+
+.create-account-button {
+  margin-top: 14px;
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  text-align: left;
 }
 
 .register-rules {
@@ -247,60 +281,10 @@ body {
   font-size: 14px;
 }
 
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.login-page {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-card {
-  background: white;
-  padding: 32px;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.login-input {
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}
-
-.login-button {
-  background: #111827;
-  color: white;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-}
-
-.create-account-button {
-  margin-top: 10px;
-  background: transparent;
-  border: none;
-  color: #2563eb;
-  cursor: pointer;
-}
-
-.app {
-  position: relative;
-}
-
 .logout-button {
   position: absolute;
   top: 20px;
   right: 20px;
-
   background: #ef4444;
   color: white;
   border: none;
@@ -316,10 +300,19 @@ body {
   transform: translateY(-1px);
 }
 
-
 @media (max-width: 700px) {
   .app {
     padding: 32px 16px;
+  }
+
+  .weather-box {
+    top: 12px;
+    left: 12px;
+    font-size: 13px;
+  }
+
+  .todo-container {
+    padding-top: 160px;
   }
 
   .app-title {
@@ -341,5 +334,9 @@ body {
   .todo-text,
   .todo-edit-input {
     font-size: 16px;
+  }
+
+  .login-card {
+    padding: 28px 20px;
   }
 }
