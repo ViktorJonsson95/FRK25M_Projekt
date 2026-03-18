@@ -38,8 +38,10 @@ function App() {
   return (
     <>
       <div className="app">
+        <div className="weather-box">
         <Clock />
         <Weather></Weather>
+        </div>
         <button onClick={logoutUser} className="logout-button">
           Logout
         </button>

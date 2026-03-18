@@ -39,14 +39,14 @@ function Register({ setShowRegister }) {
 
                     <input
                         type="text"
-                        placeholder="Username..."
+                        placeholder="Username"
                         onChange={(e) => setUsername(e.target.value)}
                         className="login-input"
                     />
 
                     <input
                         type="password"
-                        placeholder="Password..."
+                        placeholder="Password"
                         onChange={(e) => setPassword(e.target.value)}
                         className="login-input"
                     />
