@@ -18,8 +18,11 @@ body {
   position: absolute;
   top: 20px;
   left: 20px;
+  width: 220px;
+  height: 140px;
   font-size: 14px;
   line-height: 1.7;
+  overflow: hidden;
 }
 
 .todo-container {
@@ -154,6 +157,7 @@ body {
   justify-content: center;
   flex-shrink: 0;
   transition: 0.2s;
+  padding: 0;
 }
 
 .edit-button {
@@ -161,12 +165,14 @@ body {
 }
 
 .save-button {
-  background: #ecfdf5;
-  color: #15803d;
+  background: #f3f4f6;
+  color: #4f46e5;
 }
 
 .delete-button {
-  background: #fee2e2;
+  background: #f9fafb;
+  color: #e9ca3aff;
+
 }
 
 .edit-button:hover {
@@ -180,8 +186,8 @@ body {
 }
 
 .delete-button:hover {
-  background: #fecaca;
-  transform: scale(1.05);
+  background: #fee2e2;
+  color: rgb(68, 233, 239);
 }
 
 .message {
@@ -194,16 +200,16 @@ body {
 }
 
 .login-page {
-  min-height: 100vh;
+  position: fixed;
+  inset: 0;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 10vh;
-  padding-left: 20px;
-  padding-right: 20px;
+  align-items: center;
+  pointer-events: none;
 }
 
 .login-card {
+  pointer-events: auto;
   width: 100%;
   max-width: 400px;
   background: white;
