@@ -89,9 +89,7 @@ export default function Weather() {
         <div className="weather">
             <p>{city}</p>
             <p>{weatherText[weather.weathercode]}</p>
-            <p>Temperature: {weather.temperature_2m}°C</p>
-            <p>Wind Speed: {weather.windspeed_10m} km/h</p>
-            <p>Rainfall: {weather.precipitation} mm</p>
+            <p>{weather.temperature_2m}°C</p>
         </div>
     );
 }

@@ -9,18 +9,21 @@ body {
   color: #1f2937;
 }
 
+/* ===== MOBILE (default) ===== */
+
 .app {
   min-height: 100vh;
   position: relative;
+  padding: 32px 16px;
 }
 
 .weather-box {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 12px;
+  left: 12px;
   width: 220px;
   height: 140px;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.7;
 }
 
@@ -28,12 +31,12 @@ body {
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
-  padding-top: 120px;
+  padding-top: 160px;
 }
 
 .app-title {
   text-align: center;
-  font-size: 48px;
+  font-size: 36px;
   font-weight: 700;
   margin-bottom: 24px;
   color: #111827;
@@ -41,6 +44,7 @@ body {
 
 .add-todo-form {
   display: flex;
+  flex-direction: column;
   gap: 12px;
   margin-bottom: 28px;
 }
@@ -52,7 +56,7 @@ body {
 .add-todo-input {
   width: 100%;
   padding: 14px 16px;
-  font-size: 18px;
+  font-size: 16px;
   border: 1px solid #d1d5db;
   border-radius: 14px;
   background: white;
@@ -71,15 +75,15 @@ body {
   color: white;
   padding: 14px 22px;
   border-radius: 14px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  width: 100%;
   transition: 0.2s;
 }
 
 .add-todo-button:hover {
   opacity: 0.92;
-  transform: translateY(-1px);
 }
 
 .todo-list {
@@ -92,7 +96,7 @@ body {
   background: white;
   border: 1px solid #e5e7eb;
   border-radius: 16px;
-  padding: 14px 16px;
+  padding: 12px;
   margin-bottom: 14px;
   box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
 }
@@ -113,7 +117,7 @@ body {
 
 .todo-text {
   flex: 1;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   color: #111827;
 }
@@ -125,7 +129,7 @@ body {
   padding: 10px 12px;
   border: 1px solid #d1d5db;
   border-radius: 12px;
-  font-size: 18px;
+  font-size: 16px;
   outline: none;
 }
 
@@ -171,17 +175,14 @@ body {
 .delete-button {
   background: #f9fafb;
   color: #e9ca3aff;
-
 }
 
 .edit-button:hover {
   background: #e5e7eb;
-  transform: scale(1.05);
 }
 
 .save-button:hover {
   background: #dcfce7;
-  transform: scale(1.05);
 }
 
 .delete-button:hover {
@@ -191,7 +192,7 @@ body {
 
 .message {
   margin-top: 20px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .error-message {
@@ -212,7 +213,7 @@ body {
   width: 100%;
   max-width: 400px;
   background: white;
-  padding: 40px 30px;
+  padding: 28px 20px;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
@@ -282,8 +283,8 @@ body {
 
 .logout-button {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 12px;
+  right: 12px;
   background: #ef4444;
   color: white;
   border: none;
@@ -296,46 +297,73 @@ body {
 
 .logout-button:hover {
   background: #dc2626;
-  transform: translateY(-1px);
 }
 
-@media (max-width: 700px) {
+.clock,
+.weather {
+  display: flex;
+  gap: 5px;
+  margin: 5px;
+}
+
+/* ===== DESKTOP ===== */
+
+@media (min-width: 700px) {
   .app {
-    padding: 32px 16px;
+    padding: 0;
   }
 
   .weather-box {
-    top: 12px;
-    left: 12px;
-    font-size: 13px;
+    top: 20px;
+    left: 20px;
+    font-size: 14px;
   }
 
   .todo-container {
-    padding-top: 160px;
+    padding-top: 120px;
   }
 
   .app-title {
-    font-size: 36px;
+    font-size: 48px;
   }
 
   .add-todo-form {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .add-todo-button {
-    width: 100%;
+    width: auto;
+    font-size: 18px;
+  }
+
+  .add-todo-input {
+    font-size: 18px;
   }
 
   .todo-item {
-    padding: 12px;
+    padding: 14px 16px;
   }
 
   .todo-text,
   .todo-edit-input {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .login-card {
-    padding: 28px 20px;
+    padding: 40px 30px;
+  }
+
+  .logout-button {
+    top: 20px;
+    right: 20px;
+  }
+
+  .add-todo-button:hover {
+    transform: translateY(-1px);
+  }
+
+  .edit-button:hover,
+  .save-button:hover {
+    transform: scale(1.05);
   }
 }

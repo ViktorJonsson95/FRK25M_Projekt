@@ -17,11 +17,10 @@ const TodoList = ({ refresh, setRefresh }) => {
         async function fetchTodos() {
             try {
                 const data = await getTodos();
-                console.log("Todos", data)
 
                 const sortedTodos = [...data].sort((a, b) => a.createdAt - b.createdAt);
                 setTodos(sortedTodos);
-                
+
             } catch (err) {
                 setError("Could not load todos");
             } finally {
@@ -36,10 +35,9 @@ const TodoList = ({ refresh, setRefresh }) => {
     const onDelete = async (id) => {
         try {
             const response = await deleteTodo(id)
-            console.log(response)
             setRefresh(prev => !prev)
         } catch (error) {
-            console.log("Delete failed", error)
+            setError("Delete failed");
         }
     }
 
@@ -55,7 +53,7 @@ const TodoList = ({ refresh, setRefresh }) => {
             setRefresh(prev => !prev);
 
         } catch (error) {
-            console.log("Toggle failed", error);
+            setError("Toggle failed");
         }
     };
 
@@ -81,7 +79,7 @@ const TodoList = ({ refresh, setRefresh }) => {
             setEditedTitle("");
             setRefresh(prev => !prev);
         } catch (error) {
-            console.log("Edit failed", error);
+            setError("Edit failed");
         }
     };
 

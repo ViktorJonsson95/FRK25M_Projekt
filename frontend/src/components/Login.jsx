@@ -22,7 +22,6 @@ function Login() {
             await loginUser(username, password);
         } catch (error) {
             setError("Login failed");
-            console.log("Login failed")
         }
     };
     //om showRegister = true så visa Register och skicka med setShowRegister som prop så det kan ändras i Register också.
@@ -37,13 +36,13 @@ function Login() {
                     <h2 className="login-title">Login</h2>
                     <input
                         type="text"
-                        placeholder="username"
+                        placeholder="Username"
                         onChange={(e) => setUsername(e.target.value)} className="login-input"
                     />
 
                     <input
                         type="password"
-                        placeholder="password"
+                        placeholder="Password"
                         onChange={(e) => setPassword(e.target.value)} className="login-input"
                     />
 

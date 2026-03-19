@@ -18,7 +18,6 @@ function Register({ setShowRegister }) {
         try {
             await registerUser(username, password);
         } catch (error) {
-            console.log("Register failed", error);
             setError(error.message);
         }
     };
