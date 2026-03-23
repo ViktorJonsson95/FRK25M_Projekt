@@ -3,7 +3,7 @@ import { loginUser } from "../services/loginUser";
 import Register from "./Register";
 import { isValidUsername } from "../services/usernameUtils";
 
-function Login() {
+const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");

@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { usernameToEmail } from "./usernameUtils";
 
-export async function registerUser(username, password) {
+export const registerUser = async (username, password) => {
     // Konverterar username till fake email
     const email = usernameToEmail(username);
 

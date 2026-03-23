@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { usernameToEmail } from "./usernameUtils";
 
-export async function loginUser(username, password) {
+export const loginUser = async (username, password) => {
 
     // Firebase Auth kräver email + password. funktionen tar username konverterar det till en "fake email". (username@todo.app)
     const email = usernameToEmail(username);

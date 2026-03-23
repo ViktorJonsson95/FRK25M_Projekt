@@ -1,6 +1,6 @@
 import { getAuthToken } from "./getAuthToken";
 
-export async function addTodo(todoObject) {
+export const addTodo = async (todoObject) => {
     if (!todoObject.title) return;
     try {
         const token = await getAuthToken();
