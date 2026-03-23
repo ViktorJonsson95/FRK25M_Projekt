@@ -6,8 +6,8 @@ En fullstack Todo-applikation byggd med React och Node.js. Användare kan logga 
  
 ## Screenshots
  
-![Login](images/todoLogin.png)
-![Todo App](images/todoUI.png)
+![Login](images/TodoLogin.png)
+![Todo App](images/TodoUI.png)
  
 ---
  
