@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function Weather() {
+const Weather = () => {
     const [weather, setWeather] = useState(null);
     const [city, setCity] = useState(null);
 
@@ -93,3 +93,5 @@ export default function Weather() {
         </div>
     );
 }
+
+export default Weather;

@@ -2,7 +2,7 @@ import { getAuthToken } from "./getAuthToken";
 const api_url = "http://localhost:3000";
 
 //Funktion som skickar en PUT-request för att uppdatera en todo
-export async function updateTodo(id, updatedTodo) {
+export const updateTodo = async (id, updatedTodo) => {
     try {
         const token = await getAuthToken();
         const response = await fetch(`${api_url}/Todo/${id}`, {

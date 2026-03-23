@@ -1,6 +1,6 @@
 import { getAuthToken } from "./getAuthToken";
 
-export async function getTodos() {
+export const getTodos = async () => {
     try {
         // hämtar Firebase auth-token för den inloggade användaren
         const token = await getAuthToken();

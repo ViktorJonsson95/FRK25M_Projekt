@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { registerUser } from "../services/registerUser";
 import { isValidUsername } from "../services/usernameUtils";
-function Register({ setShowRegister }) {
+
+const Register = ({ setShowRegister }) => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
