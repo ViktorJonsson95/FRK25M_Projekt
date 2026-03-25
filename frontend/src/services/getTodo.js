@@ -1,5 +1,5 @@
 import { getAuthToken } from "./getAuthToken";
-const api_url = "http://localhost:3000/Todo";
+const api_url = "http://localhost:3000";
 
 export const getTodos = async () => { // Funktion som hämtar alla todos för den inloggade användaren från backend
     try {
