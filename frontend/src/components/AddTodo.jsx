@@ -7,7 +7,7 @@ const AddTodo = ({ setRefresh }) => {
     const handleSubmit = async (e) => {
         e.preventDefault(); // Sidan laddas inte om vid re-load. Behåller våra todos.
 
-        if (!title.trim()) return; // ingen tom todo
+        if (!title.trim()) return;
 
         const newTodo = {
             title: title.trim(),
@@ -15,7 +15,7 @@ const AddTodo = ({ setRefresh }) => {
             createdAt: Date.now()
         };
 
-        await addTodo(newTodo); // Kör funktionen
+        await addTodo(newTodo); // Anropar addTodo i service-filen där en POST-request skickas till backend med den nya todon
 
         setTitle(""); // reset input, gör inputrutan tom efter varje ny todo.
         setRefresh(prev => !prev);
