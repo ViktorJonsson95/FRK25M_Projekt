@@ -9,7 +9,7 @@ export const deleteTodo = async (id) => {
         const token = await getAuthToken();
 
         // Skickar request till endpointen DELETE /Todo/:id
-        const response = await fetch(`${api_url}/Todo/${id}`, {
+        const response = await fetch(`${api_url}/Todo/${id}`, { // här specificerar vi att det är en DELETE request och skickar med id:t på den todo som ska tas bort
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}` //här skickas auth token med till backend
@@ -18,7 +18,7 @@ export const deleteTodo = async (id) => {
 
         //Vårt felmeddelande
         if (!response.ok) {
-            throw new Error("could not delete todo");
+            throw new Error("could not delete todo"); // Om status inte är 200-299 kastas ett fel som fångas i catch-blocket
         }
         //Här returneras svaret från backend
         return await response.json();
