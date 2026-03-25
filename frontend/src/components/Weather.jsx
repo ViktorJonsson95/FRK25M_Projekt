@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 
 const Weather = () => {
+    // State för väderdata och stad
     const [weather, setWeather] = useState(null);
     const [city, setCity] = useState(null);
 
+    // Mapping från weathercode (API) till läsbar text
     const weatherText = {
         0: "Clear",
 
@@ -46,18 +48,22 @@ const Weather = () => {
         96: "Thunderstorm with light hail",
         99: "Thunderstorm with heavy hail"
     };
-
+    // Hämtar väderdata + stad baserat på lat/lon
     const fetchWeather = async (lat, lon) => {
+
+        // Request till Open-Meteo (väderdata)
         const weatherRes = await fetch(
             `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,windspeed_10m,cloudcover,precipitation,weathercode`
         );
         const weatherData = await weatherRes.json();
 
+        // Reverse geocoding → lat/lon → stad
         const cityRes = await fetch(
             `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
         );
         const cityData = await cityRes.json();
 
+        // Välj bästa tillgängliga fält för stad
         const cityName =
             cityData.address?.city ||
             cityData.address?.town ||
@@ -68,10 +74,11 @@ const Weather = () => {
         setCity(cityName);
         setWeather(weatherData.current);
     };
-
+    // Körs en gång vid mount
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
+                // användarens position
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
                 fetchWeather(lat, lon);
@@ -82,7 +89,7 @@ const Weather = () => {
             }
         );
     }, []);
-
+    // Loading state tills data finns
     if (!weather) return <p>Loading weather...</p>;
 
     return (

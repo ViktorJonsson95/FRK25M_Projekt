@@ -4,21 +4,26 @@ import { isValidUsername } from "../services/usernameUtils";
 
 const Register = ({ setShowRegister }) => {
 
+    // State för inputfält och felmeddelande
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
 
+    // Körs när formuläret skickas
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Validera username innan request
         if (!isValidUsername(username)) {
             setError("Username must be 3-20 characters, letters and numbers only");
             return;
         }
 
         try {
+            // Skicka registreringsdata till backend
             await registerUser(username, password);
         } catch (error) {
+            // Visa fel från backend
             setError(error.message);
         }
     };
