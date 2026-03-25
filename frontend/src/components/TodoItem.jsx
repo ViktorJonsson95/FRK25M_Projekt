@@ -12,10 +12,10 @@ const TodoItem = ({ id, title, completed, onToggle, onDelete, onEditClick, onSav
         >
           <input
             className="todo-edit-input"
-            value={editedTitle}
-            onChange={(e) => setEditedTitle(e.target.value)}
-            onKeyDown={(e) => { //Om man trycker escape så stängs edit
-              if (e.key === "Escape") {
+            value={editedTitle} // Visar texten från state i inputfältet (kommer från TodoList)
+            onChange={(e) => setEditedTitle(e.target.value)} // Uppdaterar state när användaren skriver
+            onKeyDown={(e) => { 
+              if (e.key === "Escape") { //Om man trycker escape så stängs edit, inputfältet töms och edit-läget stängs
                 setEditedTitle("");
                 onEditClick(null);
               }
