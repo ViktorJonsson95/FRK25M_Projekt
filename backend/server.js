@@ -14,7 +14,7 @@ users/{uid}/todos/{todoId}
 
 //----Importera nödvändiga paket----
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config(); // laddar variabler från .env
 import express, { json } from 'express';
 import cors from 'cors';
 import { initializeApp, cert } from "firebase-admin/app";
@@ -31,12 +31,13 @@ const PORT = 3000;
 initializeApp({
     credential: cert({
         projectId: process.env.FIREBASE_PROJECT_ID,
+        // replace behövs för att \n i .env ska bli riktiga radbrytningar
         privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
         clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
     }),
 });
 
-const db = getFirestore();
+const db = getFirestore(); //initiera databas instans
 
 // -----Middleware----
 // Middleware som verifierar Firebase auth-token
@@ -46,6 +47,7 @@ async function authenticate(req, res, next) {
         // Token skickas i Authorization header från frontend
         const header = req.headers.authorization;
 
+        // Kontrollera att header finns och har rätt format
         if (!header || !header.startsWith("Bearer ")) {
             return res.status(401).send("Unauthorized");
         }
@@ -63,19 +65,19 @@ async function authenticate(req, res, next) {
         next();
 
     } catch (error) {
-
+        // Token ogiltig eller expired
         return res.status(401).send("Invalid token");
 
     }
 }
 //----Endpoints----
 
-//GET TEST
+//GET TEST endpoint (ingen auth)
 app.get('/test', async (req, res) => {
     res.status(200).json({ message: "Lyckades" });
 });
 
-//POST
+//POST - skapa ny todo
 app.post('/Todo', authenticate, async (req, res) => {
     try {
         const { completed, title, createdAt } = req.body;
@@ -103,7 +105,7 @@ app.post('/Todo', authenticate, async (req, res) => {
     }
 });
 
-//DELETE
+//DELETE - ta bort todo
 app.delete('/Todo/:id', authenticate, async (req, res) => {
     try {
         const id = req.params.id;
@@ -127,11 +129,12 @@ app.delete('/Todo/:id', authenticate, async (req, res) => {
 
 })
 
-//GET
+//GET - hämta alla todos för användaren
 app.get('/Todo', authenticate, async (req, res) => {
     try {
         const snapshot = await db.collection("users").doc(req.user.uid).collection("todos").get();
 
+        // om inga todos → returnera tom array
         if (snapshot.empty) {
             return res.status(200).json([]);
         }
@@ -156,7 +159,7 @@ app.get('/Todo', authenticate, async (req, res) => {
     }
 })
 
-//PUT
+//PUT - uppdatera todo (title och/eller completed)
 app.put('/Todo/:id', authenticate, async (req, res) => {
     try {
         const id = req.params.id;
@@ -164,6 +167,7 @@ app.put('/Todo/:id', authenticate, async (req, res) => {
 
         const updateData = {};
 
+        // uppdatera endast fält som skickas med
         if (title !== undefined) updateData.title = title;
         if (completed !== undefined) updateData.completed = completed;
 
