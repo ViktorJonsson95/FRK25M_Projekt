@@ -1,13 +1,14 @@
 import { getAuthToken } from "./getAuthToken";
 const api_url = "http://localhost:3000/Todo";
 
-export const getTodos = async () => {
+export const getTodos = async () => { // Funktion som hämtar alla todos för den inloggade användaren från backend
     try {
         // hämtar Firebase auth-token för den inloggade användaren
         const token = await getAuthToken();
 
         //await fetch() hämtar data
-        const response = await fetch(`${api_url}/Todo`, {
+        const response = await fetch(`${api_url}/Todo`, { // här specificerar vi att det är en GET request och skickar med auth token i headern så backend kan verifiera användaren via middleware
+            method: "GET",
             headers: {
                 Authorization: `Bearer ${token}` //skicka med auth token till backend
             }
