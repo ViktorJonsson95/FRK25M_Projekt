@@ -30,8 +30,10 @@ function App() {
 
   if (!user) return (
     <div>
-      <Clock />
-      <Weather></Weather>
+      <div className="weather-box">
+        <Clock />
+        <Weather />
+      </div>
       <Login />
     </div >
   );
@@ -39,8 +41,8 @@ function App() {
     <>
       <div className="app">
         <div className="weather-box">
-        <Clock />
-        <Weather></Weather>
+          <Clock />
+          <Weather />
         </div>
         <button onClick={logoutUser} className="logout-button">
           Logout

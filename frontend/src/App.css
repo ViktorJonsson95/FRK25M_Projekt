@@ -306,6 +306,10 @@ body {
   margin: 5px;
 }
 
+.clock {
+  font-variant-numeric: tabular-nums;
+}
+
 /* ===== DESKTOP ===== */
 
 @media (min-width: 700px) {
