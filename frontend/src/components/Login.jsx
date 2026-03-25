@@ -4,21 +4,23 @@ import Register from "./Register";
 import { isValidUsername } from "../services/usernameUtils";
 
 const Login = () => {
-
+    // State för input, toggle mellan login/register och felmeddelande
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showRegister, setShowRegister] = useState(false);
     const [error, setError] = useState(null);
 
+    // Körs när formuläret skickas
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        // Validera username innan request
         if (!isValidUsername(username)) {
             setError("Username must be 3-20 characters, letters and numbers only");
             return;
         }
 
         try {
+            // Skicka login-request
             await loginUser(username, password);
         } catch (error) {
             setError("Login failed");
