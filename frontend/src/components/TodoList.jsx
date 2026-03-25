@@ -34,7 +34,7 @@ const TodoList = ({ refresh, setRefresh }) => {
     // Funktion som tar emot ett id och används för att ta bort en todo från vår state.
     const onDelete = async (id) => {
         try {
-            const response = await deleteTodo(id)
+            await deleteTodo(id)
             setRefresh(prev => !prev)
         } catch (error) {
             setError("Delete failed");

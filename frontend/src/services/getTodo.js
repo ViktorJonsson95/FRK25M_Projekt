@@ -1,4 +1,5 @@
 import { getAuthToken } from "./getAuthToken";
+const api_url = "http://localhost:3000/Todo";
 
 export const getTodos = async () => {
     try {
@@ -6,12 +7,11 @@ export const getTodos = async () => {
         const token = await getAuthToken();
 
         //await fetch() hämtar data
-        const response = await
-            fetch("http://localhost:3000/Todo", {
-                headers: {
-                    Authorization: `Bearer ${token}` //skicka med auth token till backend
-                }
-            });
+        const response = await fetch(`${api_url}/Todo`, {
+            headers: {
+                Authorization: `Bearer ${token}` //skicka med auth token till backend
+            }
+        });
         //kollar status 200
         if (!response.ok) {
             throw new Error("Network error");
