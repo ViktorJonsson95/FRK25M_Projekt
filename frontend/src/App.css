@@ -24,7 +24,7 @@ body {
   width: 220px;
   height: 140px;
   font-size: 13px;
-  line-height: 1.7;
+  line-height: 1.1;
 }
 
 .todo-container {
@@ -307,7 +307,13 @@ body {
 }
 
 .clock {
+  display: flex;
+  flex-direction: column;
   font-variant-numeric: tabular-nums;
+}
+
+.clock-date {
+  white-space: nowrap;
 }
 
 /* ===== DESKTOP ===== */
